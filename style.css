@@ -1,0 +1,286 @@
+/* ===== Couleurs et réglages généraux ===== */
+:root {
+  color-scheme: dark;
+  --fond: #000000;
+  --surface: #141416;
+  --surface-2: #1f1f23;
+  --bord: #2c2c31;
+  --texte: #ffffff;
+  --texte-2: #d4d4d8;
+  --gris: #a1a1aa;
+  --bleu: #1f6feb;        /* fond des boutons principaux */
+  --bleu-clair: #4c9aff;  /* texte et traits bleus sur fond noir */
+  --orange: #ff9f43;      /* régression, mauvaise exécution, suppression */
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  background: var(--fond);
+  color: var(--texte);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior-y: none;
+}
+
+button, input {
+  font-family: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  touch-action: manipulation;       /* pas de zoom au double appui */
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+button:active { opacity: 0.7; }
+
+button:focus-visible, input:focus-visible, label:focus-within {
+  outline: 2px solid var(--bleu-clair);
+  outline-offset: 2px;
+}
+
+/* ===== Structure d'un écran ===== */
+/* env(safe-area-inset-...) : marges imposées par l'encoche et la barre du bas de l'iPhone */
+.ecran {
+  min-height: 100vh;
+  min-height: 100dvh;
+  max-width: 520px;
+  margin: 0 auto;
+  padding: calc(env(safe-area-inset-top, 0px) + 14px) 20px calc(env(safe-area-inset-bottom, 0px) + 18px);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.pousse { flex-grow: 1; }          /* espace vide qui pousse les boutons vers le bas */
+.gris { color: var(--gris); font-size: 15px; }
+.centre { text-align: center; }
+
+/* ===== En-tête avec bouton retour ===== */
+.entete { display: flex; align-items: center; gap: 12px; }
+.entete h1 { margin: 0; font-size: 23px; font-weight: 700; line-height: 1.2; }
+.entete .sous { font-size: 14px; color: var(--gris); margin-top: 2px; }
+.entete .sous.bleu-texte { color: var(--bleu-clair); font-weight: 600; }
+
+.retour {
+  flex: none;
+  width: 44px; height: 44px;
+  border: none; border-radius: 12px;
+  background: var(--surface);
+  display: flex; align-items: center; justify-content: center;
+}
+
+/* ===== Accueil ===== */
+.entete-accueil { padding: 12px 0 6px; }
+.grand-titre { margin: 4px 0 0; font-size: 34px; font-weight: 700; }
+
+.gros {
+  flex-grow: 1;
+  min-height: 150px;
+  border: 1px solid var(--bord); border-radius: 24px;
+  background: var(--surface);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+  padding: 16px;
+}
+.gros .gros-titre { font-size: 26px; font-weight: 700; }
+.gros.bleu { background: var(--bleu); border-color: var(--bleu); }
+.gros.bleu .gris { color: #ffffff; }
+
+.deux { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+/* ===== Boutons ===== */
+.btn {
+  min-height: 64px;
+  border: 1px solid var(--bord); border-radius: 16px;
+  background: var(--surface);
+  font-size: 17px; font-weight: 600;
+  padding: 0 16px;
+  display: flex; align-items: center; justify-content: center; text-align: center;
+}
+.btn.principal { background: var(--bleu); border-color: var(--bleu); font-size: 18px; font-weight: 700; }
+.btn.contour { background: var(--fond); border-color: var(--bleu-clair); color: var(--bleu-clair); font-weight: 700; }
+.btn.pointille { background: var(--fond); border: 1px dashed var(--bleu-clair); color: var(--bleu-clair); min-height: 56px; }
+.btn.discret { background: none; border: none; color: var(--orange); min-height: 44px; font-size: 16px; }
+
+/* Ligne cliquable : une séance ou un exercice dans une liste */
+.ligne {
+  min-height: 64px; width: 100%;
+  border: 1px solid var(--bord); border-radius: 16px;
+  background: var(--surface);
+  padding: 10px 16px;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  text-align: left;
+}
+.ligne.haute { min-height: 80px; }
+.ligne .ligne-titre { font-size: 17px; font-weight: 600; overflow-wrap: anywhere; }
+.ligne.haute .ligne-titre { font-size: 20px; }
+.ligne .gris { flex: none; font-size: 14px; }
+.ligne .colonne { display: flex; flex-direction: column; gap: 4px; }
+
+.liste { display: flex; flex-direction: column; gap: 10px; }
+
+/* Bouton de choix de la séance du jour */
+.choix {
+  min-height: 104px;
+  border: 2px solid var(--bleu); border-radius: 20px;
+  background: var(--surface);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
+  padding: 12px;
+}
+.choix .choix-titre { font-size: 26px; font-weight: 700; overflow-wrap: anywhere; }
+
+/* ===== Champs de saisie ===== */
+.champ { display: flex; flex-direction: column; gap: 8px; }
+.champ label, .champ .etiquette { font-size: 14px; color: var(--gris); }
+
+.texte {
+  height: 56px; width: 100%;
+  border: 1px solid var(--bord); border-radius: 14px;
+  background: var(--surface);
+  padding: 0 16px;
+  font-size: 20px; font-weight: 600;   /* 16px minimum, sinon l'iPhone zoome sur le champ */
+}
+
+/* Compteur : bouton −, valeur, bouton + */
+.pas { display: flex; gap: 10px; }
+.pas-btn {
+  flex: none; width: 64px; height: 56px;
+  border: 1px solid var(--bord); border-radius: 14px;
+  background: var(--surface);
+  font-size: 28px; line-height: 1;
+}
+.pas-val {
+  flex: 1; min-width: 0; height: 56px;
+  border: 1px solid var(--bord); border-radius: 14px;
+  background: var(--fond);
+  text-align: center;
+  font-size: 26px; font-weight: 700;
+}
+div.pas-val { display: flex; align-items: center; justify-content: center; }
+.pas.grand .pas-btn { width: 72px; height: 72px; font-size: 32px; }
+.pas.grand .pas-val { height: 72px; font-size: 32px; }
+
+.unite { display: flex; align-items: center; gap: 12px; }
+.unite .texte { height: 64px; font-size: 28px; font-weight: 700; }
+.unite span { font-size: 22px; font-weight: 600; color: var(--gris); }
+
+/* ===== Cartes (exercice ouvert, détail d'un jour) ===== */
+.carte {
+  border: 1px solid var(--bord); border-radius: 16px;
+  background: var(--surface);
+  padding: 14px;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.carte-tete { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+.carte-titre { font-size: 18px; font-weight: 700; overflow-wrap: anywhere; }
+.carte .btn { min-height: 52px; border-radius: 10px; font-size: 16px; }
+
+/* Une série enregistrée */
+.serie {
+  min-height: 48px; width: 100%;
+  border: none; border-radius: 10px;
+  background: var(--surface-2);
+  padding: 6px 12px;
+  display: flex; align-items: center; gap: 10px;
+  text-align: left;
+}
+.serie-no { flex: none; width: 16px; font-size: 14px; color: var(--gris); }
+.serie-val { flex-grow: 1; font-size: 16px; font-weight: 600; }
+.serie-val small { display: block; font-size: 12px; font-weight: 400; color: var(--gris); }
+
+/* Indicateur de comparaison avec la dernière fois */
+.cmp { flex: none; display: inline-flex; align-items: center; gap: 4px; font-size: 14px; font-weight: 600; white-space: nowrap; }
+.cmp.haut { color: var(--bleu-clair); }
+.cmp.egal { color: var(--texte-2); }
+.cmp.bas { color: var(--orange); }
+.cmp.neutre { color: var(--gris); font-size: 13px; font-weight: 400; }
+
+/* Ressenti affiché à droite d'une série */
+.ressenti { flex: none; width: 70px; text-align: right; font-size: 14px; }
+.ressenti.bonne { color: var(--bleu-clair); }
+.ressenti.moyenne { color: var(--texte-2); }
+.ressenti.mauvaise { color: var(--orange); }
+
+.degradation { font-size: 13px; color: var(--orange); }
+
+/* Encadré de comparaison sur l'écran de saisie */
+.comparaison {
+  border: 1px solid var(--bleu); border-radius: 14px;
+  background: #0b1a33;
+  padding: 12px 14px;
+  display: flex; flex-direction: column; gap: 6px;
+  min-height: 74px;
+}
+.cmp-haut { display: flex; align-items: center; justify-content: space-between; gap: 10px; font-size: 15px; color: var(--texte-2); }
+.cmp-haut b { color: var(--texte); }
+.cmp-haut .cmp { font-size: 18px; font-weight: 700; }
+.cmp-haut .cmp.neutre { font-size: 14px; font-weight: 600; }
+.cmp-bas { font-size: 13px; line-height: 18px; color: var(--gris); }
+
+/* Trois boutons d'exécution */
+.trois { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.trois button {
+  height: 60px;
+  border: 1px solid var(--bord); border-radius: 14px;
+  background: var(--surface);
+  font-size: 16px; font-weight: 600;
+}
+.trois button[aria-pressed="true"] { background: var(--bleu); border: 2px solid var(--bleu-clair); font-weight: 700; }
+.trois button[data-v="mauvaise"][aria-pressed="true"] { background: #7a3d00; border-color: var(--orange); }
+.trois button[data-v="moyenne"][aria-pressed="true"] { background: #3a3a40; border-color: var(--texte-2); }
+
+/* Messages */
+.erreur { color: var(--orange); font-size: 15px; font-weight: 600; min-height: 20px; }
+.info { color: var(--bleu-clair); font-size: 15px; font-weight: 600; min-height: 20px; }
+.note {
+  border: 1px solid var(--bord); border-radius: 14px;
+  background: var(--surface);
+  padding: 14px 16px;
+  font-size: 15px; line-height: 22px; color: var(--texte-2);
+}
+.note b { color: var(--texte); }
+.titre-section { font-size: 18px; font-weight: 700; margin-top: 8px; }
+
+/* ===== Calendrier ===== */
+.mois { display: flex; align-items: center; justify-content: space-between; }
+.mois-titre { font-size: 20px; font-weight: 700; }
+.mois button {
+  width: 48px; height: 48px;
+  border: 1px solid var(--bord); border-radius: 12px;
+  background: var(--surface);
+  display: flex; align-items: center; justify-content: center;
+}
+.semaine, .grille { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 4px; }
+.semaine { text-align: center; font-size: 13px; color: var(--gris); }
+
+.jour {
+  height: 58px;
+  border: 2px solid transparent; border-radius: 10px;
+  background: none;
+  padding: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+  font-size: 16px; color: var(--texte-2);
+}
+.jour.entraine { background: var(--bleu); color: #ffffff; font-weight: 700; }
+.jour.aujourdhui { border-color: #ffffff; color: #ffffff; font-weight: 700; }
+.jour small {
+  max-width: 100%; padding: 0 2px;
+  font-size: 11px; font-weight: 600;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+
+.legende { display: flex; flex-direction: column; gap: 10px; padding-top: 4px; font-size: 14px; color: var(--texte-2); }
+.legende div { display: flex; align-items: center; gap: 10px; }
+.legende i { flex: none; width: 18px; height: 18px; border-radius: 5px; }
+.legende i.plein { background: var(--bleu); }
+.legende i.vide { border: 2px solid #ffffff; }
+
+/* Bouton d'import : le vrai champ fichier est caché dans le label */
+.btn input[type="file"] { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+label.btn { position: relative; cursor: pointer; }
